@@ -10,6 +10,12 @@ var scss = require('gulp-scss');
 function version(){
  var now = new Date(),
    Y = now.getFullYear(),
+   //Compile all JS tasks
+gulp.task('build-js', [
+  'build-main-js',
+  'build-auth-js',
+  'build-users-js'
+]);
    m = now.getMonth()+1,
    d = now.getDate(),
    H = now.getHours(),
@@ -40,6 +46,17 @@ gulp.task('build-css', function(){
  ])
  . pipe(scss())
  . pipe(concat('main.css'))
+ gulp.task('build-users-js', function() {
+
+  var userApp = gulp.src([
+    'src/js/users.app.js',
+  ])
+  .pipe(concat('users.app.min.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('public/dist/js'));
+
+  return merge(userApp);
+});
  . pipe(gulp.dest('dist/css'));
 
  //Create a minified version

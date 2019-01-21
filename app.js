@@ -39,3 +39,31 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+
+
+
+
+
+var subs = [
+    '/public/'
+    '/api/auth/'
+
+];
+
+
+for(var sub of subs){
+  if (req.url.substrind(0,sub.lenght)===sub){
+      return next();
+
+    }
+  }
+
+
+
+app.use(function(req,res,next){
+  res.locals.session = req.session;
+  next();
+});
+app.use('/auth', authRouter);
