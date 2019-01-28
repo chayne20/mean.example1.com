@@ -30,7 +30,6 @@ var authApp = (function() {
     var app = document.getElementById('app');
 
     var form =  `
-
         <div class="card login-form">
           <form id="registrationForm" class="card-body">
             <h1 class="card-title text-center">Create an Account</h1>
@@ -44,16 +43,16 @@ var authApp = (function() {
             <div class="form-group">
               <label for="last_name">Last Name</label>
               <input type="text" id="last_name" name="last_name" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" id="username" name="username" class="form-control" required>
-            </div>
-
+loc.mean.example.com
+loc.mean.example.com
+loc.mean.example.com
+loc.mean.example.com</label>
+loc.mean.example.come" name="username" class="form-control" required>
+loc.mean.example.com
+loc.mean.example.com
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" id="email" name="email" class="form-control" required>
+              <input type="text" id="email" name="email" class="form-control" required>
             </div>
 
             <div class="form-group">
@@ -108,24 +107,6 @@ var authApp = (function() {
         }
       }
     });
-    return {
-      load: function(){
-    
-        switch(window.location.hash){
-          case '#register':
-            registrationForm();
-            postRequest('registrationForm', '/api/auth/register');
-            validate.registrationForm();
-            break;
-    
-          default:
-            loginForm();
-            postRequest('loginForm', '/api/auth/login');
-            break;
-        }
-    
-      }
-
   }
 
   return {
@@ -135,25 +116,57 @@ var authApp = (function() {
         case '#register':
           registrationForm();
           postRequest('registrationForm', '/api/auth/register');
+          validate.registrationForm();
           break;
 
         default:
           loginForm();
           postRequest('loginForm', '/api/auth/login');
-          break;
-      }
+     loc.mean.example.com
+     loc.mean.example.com
 
-    }
+    }loc.mean.example.com
   }
 
 })();
 
+var validate = (function() {
 
-authApp.load();
+  function confirmPasswordMatch() {
 
-window.addEventListener("hashchange", function(){
-  authApp.load();
-});
+    let pw = document.getElementById('password');
+    let cpw = document.getElementById('confirm_password');
+
+    if(pw.value !== cpw.value){
+      cpw.setCustomValidity("Passwords do not match");
+    } else {
+      cpw.setCustomValidity("");
+    }
+
+  }
+
+  function validateEmail() {
+    let email = document.getElementById('email');
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(re.test(String(email.value).toLowerCase())){
+      email.setCustomValidity("");
+    } else {
+      email.setCustomValidity("Invalid Email (xx@xx.xx)");
+    }
+  }
+
+  return {
+    registrationForm: function(){
+      document.querySelector('#registrationForm input[type="submit"]').addEventListener(
+        'click',
+        function(){
+        validateEmail();
+        confirmPasswordMatch();
+      });
+    }
+  }
+
+})();
 
 
 authApp.load();
